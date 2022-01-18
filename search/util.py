@@ -143,6 +143,10 @@ class Stack:
     def pop(self):
         "Pop the most recently pushed item from the stack"
         return self.list.pop()
+    
+    def peek(self):
+        "Peeks the most recently pushed item from the stack"
+        return self.list[-1]
 
     def isEmpty(self):
         "Returns true if the stack is empty"

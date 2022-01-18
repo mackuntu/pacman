@@ -18,6 +18,7 @@ Pacman agents (in searchAgents.py).
 """
 
 import util
+import heapq
 
 class SearchProblem:
     """
@@ -86,18 +87,62 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    to_visit = util.Stack()
+    visited = set([problem.getStartState()])
+    to_visit.push((problem.getStartState(), []))
+
+    while not to_visit.isEmpty():
+        node, actions = to_visit.peek()
+        if problem.isGoalState(node):
+            return actions
+        if node not in visited:
+            visited.add(node)
+        remove_from_stack = True
+        for next in problem.getSuccessors(node):
+            next_state = next[0]
+            next_action = next[1]
+            if next_state not in visited:
+                to_visit.push((next_state, actions + [next_action]))
+                remove_from_stack = False
+        if remove_from_stack:
+            to_visit.pop()
+    raise RuntimeError("No suitable goal found")
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    to_visit = util.Queue()
+    visited = set([problem.getStartState()])
+    to_visit.push((problem.getStartState(), []))
+
+    while not to_visit.isEmpty():
+        node, actions = to_visit.pop()
+        if problem.isGoalState(node):
+            return actions
+        for next in problem.getSuccessors(node):
+            next_state = next[0]
+            next_action = next[1]
+            if next_state not in visited:
+                to_visit.push((next_state, actions + [next_action]))
+                visited.add(next_state)
+    raise RuntimeError("No suitable goal found")
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    to_visit = util.PriorityQueue()
+    visited = set()
+    to_visit.push((problem.getStartState(), []), 0)
+
+    while to_visit.isEmpty() == 0:
+        state, actions = to_visit.pop()
+        if problem.isGoalState(state):
+            return actions
+        if state not in visited:
+            visited.add(state)
+            for next in problem.getSuccessors(state):
+                next_state = next[0]
+                next_action = next[1]
+                to_visit.update((next_state, actions + [next_action]), problem.getCostOfActions(actions + [next_action]))
+    raise RuntimeError("No suitable goal found")
 
 def nullHeuristic(state, problem=None):
     """
