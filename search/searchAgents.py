@@ -34,6 +34,7 @@ description for details.
 Good luck and happy searching!
 """
 
+from tkinter import FALSE
 from game import Directions
 from game import Agent
 from game import Actions
@@ -287,25 +288,26 @@ class CornersProblem(search.SearchProblem):
         self._expanded = 0 # DO NOT CHANGE; Number of search nodes expanded
         # Please add any code here which you would like to use
         # in initializing the problem
-        self.startingGameState = startingGameState
 
     def getStartState(self):
         """
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
-        "*** YOUR CODE HERE ***"
-        return (self.startingPosition, frozenset())
+        return (self.startingPosition, set())
 
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         pos = state[0]
-        visited_corners = state[1]
+        visited = state[1]
+
         if pos in self.corners:
-            visited_corners.add(pos)
-        return len(visited_corners) == 4
+            visited.add(pos)
+            return len(visited) == 4
+        else:
+            return False
 
     def getSuccessors(self, state):
         """
