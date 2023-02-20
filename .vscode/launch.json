@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/search/autograder.py",
-            "args": ["-t", "test_cases/q3/graph_manypaths"],
+            "args": ["-t", "test_cases/q6/medium_corners"],
             "console": "integratedTerminal", 
             "cwd": "${workspaceFolder}/search"
         }

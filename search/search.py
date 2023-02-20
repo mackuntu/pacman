@@ -88,7 +88,7 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     to_visit = util.Stack()
-    visited = set([problem.getStartState()])
+    visited = [problem.getStartState()]
     to_visit.push((problem.getStartState(), []))
 
     while not to_visit.isEmpty():
@@ -96,7 +96,7 @@ def depthFirstSearch(problem):
         if problem.isGoalState(node):
             return actions
         if node not in visited:
-            visited.add(node)
+            visited.append(node)
         remove_from_stack = True
         for next in problem.getSuccessors(node):
             next_state = next[0]
@@ -111,7 +111,7 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     to_visit = util.Queue()
-    visited = set([problem.getStartState()])
+    visited = [problem.getStartState()]
     to_visit.push((problem.getStartState(), []))
 
     while not to_visit.isEmpty():
@@ -123,7 +123,7 @@ def breadthFirstSearch(problem):
             next_action = next[1]
             if next_state not in visited:
                 to_visit.push((next_state, actions + [next_action]))
-                visited.add(next_state)
+                visited.append(next_state)
     raise RuntimeError("No suitable goal found")
 
 def uniformCostSearch(problem):
@@ -168,7 +168,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 next_action = next[1]
                 to_visit.update((next_state, actions + [next_action]), problem.getCostOfActions(actions + [next_action]) + heuristic(next_state, problem))
     raise RuntimeError("No suitable goal found")
-
 
 # Abbreviations
 bfs = breadthFirstSearch
