@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/search/autograder.py",
-            "args": ["-t", "test_cases/q6/medium_corners"],
+            "args": ["-t", "test_cases/q7/food_heuristic_10"],
             "console": "integratedTerminal", 
             "cwd": "${workspaceFolder}/search"
         }
