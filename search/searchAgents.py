@@ -478,12 +478,13 @@ def foodHeuristic(state, problem):
     position, foodGrid = state
     minCost = 9999
     for food in foodGrid.asList():
-        curCost = mazeDistance(food, position, problem.startingGameState)
+        #curCost = mazeDistance(food, position, problem.startingGameState)
+        curCost = abs(food[0] - position[0]) + abs(food[1] - position[1])
         if curCost < minCost:
             minCost = curCost
     if minCost == 9999:
         return 0 
-    return minCost
+    return minCost + len(foodGrid.asList()) - 1
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
